@@ -1,0 +1,108 @@
+# docker-compose.yml
+# Orquestra todos os serviços do sistema de NF:
+#   - db_stock:      PostgreSQL para o serviço de Estoque
+#   - db_billing:    PostgreSQL para o serviço de Faturamento
+#   - stock-service: Microsserviço de Estoque (Go/Gin) na porta 8081
+#   - billing-service: Microsserviço de Faturamento (Go/Gin) na porta 8082
+#   - nginx:         API Gateway / Proxy Reverso na porta 80
+
+version: "3.9"
+
+services:
+  # ─── Banco de Dados: Estoque ───────────────────────────────────────────────
+  db_stock:
+    image: postgres:16-alpine
+    container_name: korp_db_stock
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: stock_db
+      POSTGRES_USER: stock_user
+      POSTGRES_PASSWORD: stock_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_stock_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stock_user -d stock_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Banco de Dados: Faturamento ───────────────────────────────────────────
+  db_billing:
+    image: postgres:16-alpine
+    container_name: korp_db_billing
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: billing_db
+      POSTGRES_USER: billing_user
+      POSTGRES_PASSWORD: billing_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_billing_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U billing_user -d billing_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Microsserviço de Estoque ──────────────────────────────────────────────
+  stock-service:
+    build:
+      context: ./stock-service
+      dockerfile: Dockerfile
+    container_name: korp_stock_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: db_stock
+      DB_PORT: 5432
+      DB_NAME: stock_db
+      DB_USER: stock_user
+      DB_PASSWORD: stock_pass
+      PORT: 8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      db_stock:
+        condition: service_healthy
+
+  # ─── Microsserviço de Faturamento ──────────────────────────────────────────
+  billing-service:
+    build:
+      context: ./billing-service
+      dockerfile: Dockerfile
+    container_name: korp_billing_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: db_billing
+      DB_PORT: 5432
+      DB_NAME: billing_db
+      DB_USER: billing_user
+      DB_PASSWORD: billing_pass
+      PORT: 8082
+      # URL interna do stock-service (dentro da rede Docker)
+      STOCK_SERVICE_URL: http://stock-service:8081
+    ports:
+      - "8082:8082"
+    depends_on:
+      db_billing:
+        condition: service_healthy
+
+  # ─── API Gateway (Nginx) ───────────────────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: korp_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - stock-service
+      - billing-service
+
+# ─── Volumes persistentes ─────────────────────────────────────────────────────
+volumes:
+  db_stock_data:
+  db_billing_data:

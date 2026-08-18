@@ -1,0 +1,44 @@
+# ─── Go ───────────────────────────────────────────────────────────────────────
+# Binários compilados
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/bin/
+/dist/
+
+# Dependências (não precisam ser comitadas)
+vendor/
+
+# Arquivos de teste e coverage
+*.test
+*.out
+coverage.html
+
+# ─── Node / Angular ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+.angular/
+
+# ─── Variáveis de ambiente ────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── IDE / SO ─────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ─── Docker ───────────────────────────────────────────────────────────────────
+# Não ignorar docker-compose.yml (é necessário para rodar o projeto)
+# Mas ignorar overrides locais
+docker-compose.override.yml
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
