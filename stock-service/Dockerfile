@@ -2,10 +2,13 @@
 # Build multi-stage: compila o Go em uma imagem grande e copia apenas o binário para a imagem final.
 # Resultado: imagem de produção pequena (~20MB) sem toolchain do Go.
 
-# ─── Estágio 1: Build ──────────────────────────────────────────────────────
-FROM golang:1.21-alpine AS builder
+# Estágio 1: Build
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
+
+# Permite usar toolchain mais recente se necessário
+ENV GOTOOLCHAIN=auto
 
 # Copia e baixa dependências antes do código (cache de layers Docker)
 COPY go.mod go.sum ./
