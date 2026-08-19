@@ -1,0 +1,53 @@
+// app.component.scss — Estilos globais do layout raiz
+
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+  .app-logo {
+    margin-right: 10px;
+    font-size: 28px;
+  }
+
+  .app-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .spacer { flex: 1; }
+
+  a[mat-button] {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  // Destaca o link da página ativa
+  .nav-active {
+    background: rgba(255,255,255,0.2);
+    font-weight: 600;
+  }
+}
+
+// Barra de loading posicionada logo abaixo da toolbar
+.global-loading-bar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+// Conteúdo com padding para não sobrepor a toolbar fixa
+.app-content {
+  padding-top: 80px;
+  min-height: calc(100vh - 64px);
+  background: #f5f5f5;
+}

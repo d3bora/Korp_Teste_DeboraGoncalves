@@ -1,0 +1,16 @@
+{
+  "/api/stock": {
+    "target": "http://localhost:8081",
+    "pathRewrite": { "^/api/stock": "" },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/billing": {
+    "target": "http://localhost:8082",
+    "pathRewrite": { "^/api/billing": "" },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

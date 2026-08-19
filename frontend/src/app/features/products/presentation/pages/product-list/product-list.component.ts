@@ -14,10 +14,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 
-import { ProductService } from '../../domain/services/product.service';
-import { Product } from '../../domain/models/product.model';
+import { ProductService } from '../../../domain/services/product.service';
+import { Product } from '../../../domain/models/product.model';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
-import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-list',

@@ -11,8 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { ProductService } from '../../domain/services/product.service';
-import { Product } from '../../domain/models/product.model';
+import { ProductService } from '../../../domain/services/product.service';
+import { Product } from '../../../domain/models/product.model';
 
 @Component({
   selector: 'app-product-form',

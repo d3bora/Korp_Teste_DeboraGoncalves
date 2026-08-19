@@ -1,0 +1,92 @@
+// invoice-list.component.scss
+.page-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  .page-title h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1a237e;
+  }
+
+  .page-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
+
+.table-container {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.full-width { width: 100%; }
+
+// Número da NF com formatação estilo documento
+.invoice-number {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #37474f;
+  letter-spacing: 1px;
+}
+
+// Chips de status
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+
+  .status-icon { font-size: 16px; width: 16px; height: 16px; }
+}
+
+.status-aberta  { background: #e8f5e9; color: #2e7d32; }
+.status-fechada { background: #fafafa; color: #9e9e9e; }
+
+// Linha de NF fechada levemente acinzentada
+.row-closed { opacity: 0.7; }
+
+// Botão de impressão
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 110px;
+}
+
+.btn-spinner {
+  display: inline-block;
+}
+
+.items-count {
+  color: #5c6bc0;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #999;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+  }
+
+  p { margin: 0; }
+}

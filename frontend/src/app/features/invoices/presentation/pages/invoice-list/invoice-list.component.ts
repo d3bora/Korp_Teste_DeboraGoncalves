@@ -15,10 +15,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 
-import { InvoiceService } from '../../domain/services/invoice.service';
-import { Invoice } from '../../domain/models/invoice.model';
+import { InvoiceService } from '../../../domain/services/invoice.service';
+import { Invoice } from '../../../domain/models/invoice.model';
 import { InvoiceFormComponent } from '../../components/invoice-form/invoice-form.component';
-import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-invoice-list',

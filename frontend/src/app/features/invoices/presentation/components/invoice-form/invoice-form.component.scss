@@ -1,0 +1,45 @@
+// invoice-form.component.scss
+h2[mat-dialog-title] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1a237e;
+}
+
+mat-dialog-content {
+  padding-top: 16px !important;
+  min-width: 580px;
+  max-height: 60vh;
+}
+
+// Linha de item da NF (select + quantidade + botão remover)
+.item-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.product-select { flex: 2; }
+.quantity-field  { flex: 1; min-width: 100px; }
+
+.add-item-btn {
+  margin-top: 8px;
+  width: 100%;
+}
+
+// Opção do select: destaca código e saldo
+.option-code    { font-weight: 600; color: #3949ab; font-family: monospace; }
+.option-balance { color: #888; font-size: 0.85em; margin-left: 8px; }
+
+.no-products-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff3e0;
+  color: #e65100;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}

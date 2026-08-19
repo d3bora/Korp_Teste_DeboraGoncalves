@@ -1,4 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.scss — Estilos globais da aplicação */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* ─── Importação de fonte do Google Fonts ─────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ─── Reset e base ────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', Roboto, sans-serif;
+  background: #f5f5f5;
+}
+
+/* ─── Snackbars customizados ──────────────────────────────────────────────── */
+.success-snackbar {
+  --mdc-snackbar-container-color: #2e7d32;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #c62828;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+/* ─── Utilitários ─────────────────────────────────────────────────────────── */
+.full-width { width: 100%; }
+
+/* ─── Material table global ───────────────────────────────────────────────── */
+.mat-mdc-header-row {
+  background: #e8eaf6 !important;
+  font-weight: 600;
+}
+
+.mat-mdc-row:hover {
+  background: #f3f4fb !important;
+  transition: background 0.15s;
+}

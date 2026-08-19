@@ -1,0 +1,86 @@
+<!-- invoice-form.component.html -->
+<!-- Modal de criação de Nota Fiscal com múltiplos produtos (FormArray) -->
+<h2 mat-dialog-title>
+  <mat-icon>receipt_long</mat-icon>
+  Nova Nota Fiscal
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" id="invoice-form">
+
+    <!-- Aviso quando não há produtos disponíveis -->
+    <div *ngIf="availableProducts.length === 0" class="no-products-warning">
+      <mat-icon>warning</mat-icon>
+      Nenhum produto com saldo disponível. Cadastre produtos com saldo antes de emitir uma nota.
+    </div>
+
+    <!-- Lista dinâmica de itens (FormArray) -->
+    <div formArrayName="items">
+      <div *ngFor="let item of items.controls; let i = index"
+           [formGroupName]="i"
+           class="item-row">
+
+        <!-- Select de produto -->
+        <mat-form-field appearance="outline" class="product-select">
+          <mat-label>Produto</mat-label>
+          <mat-select formControlName="product"
+                      [id]="'select-product-' + i">
+            <mat-option *ngFor="let p of availableProducts" [value]="p">
+              <span class="option-code">{{ p.code }}</span> — {{ p.description }}
+              <span class="option-balance">({{ p.balance }} un.)</span>
+            </mat-option>
+          </mat-select>
+          <mat-error>Selecione um produto</mat-error>
+        </mat-form-field>
+
+        <!-- Campo de quantidade -->
+        <mat-form-field appearance="outline" class="quantity-field">
+          <mat-label>Quantidade</mat-label>
+          <input matInput
+                 type="number"
+                 formControlName="quantity"
+                 [id]="'input-quantity-' + i"
+                 min="1"
+                 [max]="getMaxQuantity(i)" />
+          <mat-error>Quantidade inválida</mat-error>
+        </mat-form-field>
+
+        <!-- Botão de remover item -->
+        <button mat-icon-button color="warn"
+                type="button"
+                matTooltip="Remover item"
+                (click)="removeItem(i)"
+                [id]="'btn-remove-item-' + i"
+                [disabled]="items.length === 1">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Botão para adicionar mais produtos à NF -->
+    <button mat-stroked-button
+            type="button"
+            color="primary"
+            (click)="addItem()"
+            id="btn-add-item"
+            [disabled]="availableProducts.length === 0"
+            class="add-item-btn">
+      <mat-icon>add</mat-icon>
+      Adicionar Produto
+    </button>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" id="btn-cancel-invoice-form">
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary"
+          (click)="onSubmit()"
+          [disabled]="form.invalid || isSubmitting || availableProducts.length === 0"
+          id="btn-submit-invoice-form">
+    {{ isSubmitting ? 'Criando...' : 'Criar Nota Fiscal' }}
+  </button>
+</mat-dialog-actions>
