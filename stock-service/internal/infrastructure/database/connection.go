@@ -27,7 +27,7 @@ func Connect() error {
 	pass := getEnv("DB_PASSWORD", "stock_pass")
 
 	dsn := fmt.Sprintf(
-		"host=%s port=%s dbname=%s user=%s password=%s sslmode=disable TimeZone=America/Sao_Paulo",
+		"host=%s port=%s dbname=%s user=%s password=%s sslmode=disable TimeZone=UTC",
 		host, port, name, user, pass,
 	)
 

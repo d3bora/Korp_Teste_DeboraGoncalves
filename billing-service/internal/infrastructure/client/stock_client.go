@@ -55,7 +55,14 @@ func (c *StockClient) DebitProductBalance(productID uint, quantity int) error {
 		return fmt.Errorf("erro ao serializar requisição: %w", err)
 	}
 
-	resp, err := c.httpClient.Post(url, "application/json", bytes.NewBuffer(payload))
+	// Usa PATCH para corresponder à rota PATCH /:id/debit do stock-service
+	req, err := http.NewRequest(http.MethodPatch, url, bytes.NewBuffer(payload))
+	if err != nil {
+		return fmt.Errorf("erro ao criar requisição: %w", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		// ⚠️ Cenário de falha: stock-service indisponível
 		return fmt.Errorf("serviço de estoque indisponível — tente novamente em instantes: %w", err)
